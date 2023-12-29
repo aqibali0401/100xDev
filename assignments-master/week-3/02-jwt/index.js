@@ -15,6 +15,32 @@ const jwtPassword = 'secret';
  */
 function signJwt(username, password) {
     // Your code here
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(username)) {
+        return null;
+    };
+
+    // validate password length
+    if (password.length < 6) {
+        return null;
+    };
+
+    // jwt payload
+    const payload = {
+        username: username,
+        password: password
+    };
+
+    const options = {
+        expiresIn: '1h'
+    };
+
+    // generate token
+    const token = jwt.sign(payload, jwtPassword, options);
+    return token;
+
 }
 
 /**
@@ -26,7 +52,14 @@ function signJwt(username, password) {
  *                    using the secret key.
  */
 function verifyJwt(token) {
-    // Your code here
+    try {
+        jwt.verify(token, jwtPassword);
+        return true;
+    } catch (error) {
+        // Token verification failed
+        console.error('JWT verification error:', error.message);
+        return false;
+    }
 }
 
 /**
@@ -38,12 +71,25 @@ function verifyJwt(token) {
  */
 function decodeJwt(token) {
     // Your code here
+
+    try {
+        const varifyToken = jwt.decode(token, jwtPassword);
+        if (varifyToken) {
+            return true;
+        } else {
+            return false;
+        }
+
+    } catch (error) {
+        return false;
+    }
+
 }
 
 
 module.exports = {
-  signJwt,
-  verifyJwt,
-  decodeJwt,
-  jwtPassword,
+    signJwt,
+    verifyJwt,
+    decodeJwt,
+    jwtPassword,
 };
