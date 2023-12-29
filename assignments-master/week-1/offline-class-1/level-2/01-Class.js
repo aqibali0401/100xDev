@@ -10,3 +10,5 @@ class Animal {
 }
 
 
+const xx = new Animal("dog", 4);
+console.log("🚀 ~ file: 01-Class.js:14 ~ xx:", xx)

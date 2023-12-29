@@ -35,10 +35,6 @@ class Calculator {
     }
     this.result /= num;
   };
-
-
-
-
   clear() {
     this.result = 0;
   };
@@ -49,9 +45,7 @@ class Calculator {
   calculate(expression) {
     // Remove multiple continuous spaces and trim the expression
     let exp = expression.replace(/\s+/g, ' ').trim();
-
-    try {
-      
+    try {      
       if (typeof eval(exp) === typeof 0 && isFinite(eval(exp))) {
         this.result = eval(exp);
         return this.result;
